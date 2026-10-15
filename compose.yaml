@@ -1,0 +1,20 @@
+services:
+  mongodb:
+    image: mongodb/mongodb-atlas-local:8.0@sha256:cd79e87b95ca4184668aacd35ca74493930727ead8d1789e37461ffbe8ef12a6
+    hostname: mongodb
+    ports:
+      - "127.0.0.1:27018:27017"
+    environment:
+      DO_NOT_TRACK: "1"
+      MONGODB_INITDB_DATABASE: mongo_local_lab
+    volumes:
+      - data:/data/db
+      - config:/data/configdb
+      - mongot:/data/mongot
+      - ./scripts/10-seed.js:/docker-entrypoint-initdb.d/10-seed.js:ro
+      - ./scripts:/lab:ro
+
+volumes:
+  data:
+  config:
+  mongot:
